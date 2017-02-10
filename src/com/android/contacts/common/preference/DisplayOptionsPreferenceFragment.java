@@ -65,6 +65,11 @@ public class DisplayOptionsPreferenceFragment extends PreferenceFragment {
         if (!resources.getBoolean(R.bool.config_display_order_user_changeable)) {
             getPreferenceScreen().removePreference(findPreference("displayOrder"));
         }
+        
+        // Disable view mode for CJK locales as well
+        if (!resources.getBoolean(R.bool.config_view_mode_user_changeable)) {
+            getPreferenceScreen().removePreference(findPreference("viewMode"));
+        }
 
         // Remove the "Default account" setting if there aren't any writable accounts
         final AccountTypeManager accountTypeManager = AccountTypeManager.getInstance(getContext());

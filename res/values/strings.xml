@@ -664,6 +664,15 @@ a        ren't members of any other group. [CHAR LIMIT=25] -->
     <!-- An allowable value for the "view names as" contact display option  -->
     <string name="display_options_view_family_name_first">Last name first</string>
 
+     <!-- Label of the "list view display mode" contact display option -->
+    <string name="display_options_view_mode">List view display mode</string>
+
+    <!-- An allowable value for the "list view display mode" contact display option -->
+    <string name="display_options_view_mode_standard">Standard view</string>
+
+    <!-- An allowable value for the "list view display mode" contact display option -->
+    <string name="display_options_view_mode_compact">Compact view</string>
+
     <!--Label of the "default account" setting option to set default editor account. [CHAR LIMIT=80]-->
     <string name="default_editor_account">Default account for new contacts</string>
 

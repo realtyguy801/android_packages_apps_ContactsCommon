@@ -55,6 +55,7 @@ import com.android.contacts.common.R;
 import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.compat.PhoneNumberUtilsCompat;
 import com.android.contacts.common.format.TextHighlighter;
+import com.android.contacts.common.preference.ContactsPreferences;
 import com.android.contacts.common.util.ContactDisplayUtils;
 import com.android.contacts.common.util.SearchUtil;
 import com.android.contacts.common.util.ViewUtil;
@@ -103,6 +104,9 @@ public class ContactListItemView extends ViewGroup
     private Drawable mActivatedBackgroundDrawable;
     private int mVideoCallIconSize = 32;
     private int mVideoCallIconMargin = 16;
+
+    // Get the view mode state
+    private int mViewMode;
 
     // Set in onLayout. Represent left and right position of the View on the screen.
     private int mLeftOffset;
@@ -270,6 +274,11 @@ public class ContactListItemView extends ViewGroup
 
     public ContactListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+         // Begin compact list view stuff
+         ContactsPreferences contactsPreferences = new ContactsPreferences(context);
+         mViewMode = contactsPreferences.getViewMode();
+         // End compact list view stuff
 
         TypedArray a;
 
@@ -572,7 +581,10 @@ public class ContactListItemView extends ViewGroup
         height = Math.max(height, mPhotoViewHeight + getPaddingBottom() + getPaddingTop());
 
         // Make sure height is at least the preferred height
-        height = Math.max(height, preferredHeight);
+        // mPreferredHeight is buried in the framework. Until I find it, this will do.
+        if (mViewMode == 1) {
+            height = Math.max(height, preferredHeight);
+        }
 
         // Measure the header if it is visible.
         if (mHeaderTextView != null && mHeaderTextView.getVisibility() == VISIBLE) {
@@ -883,6 +895,10 @@ public class ContactListItemView extends ViewGroup
                 if (!mKeepVerticalPaddingForPhotoView) {
                     mPhotoViewHeight = 0;
                 }
+            }
+            if (mViewMode == 2) {
+                mPhotoViewWidth = mPhotoViewWidth / 2;
+                mPhotoViewHeight = mPhotoViewHeight / 2;
             }
 
             mPhotoViewWidthAndHeightAreReady = true;
